@@ -1,0 +1,138 @@
+{% extends 'base.html.twig' %}
+
+{# {% block title %}{% endblock %} #}
+
+{% block body %}
+
+    
+    
+     <!-- Page Content -->
+  <div class="container-fluid mt-5">
+
+        <h2 class="my-4 text-center">BOUTIQUE SAURORA</h2>
+    <div class="row justify-content-between">
+
+      <div class="col-lg-3">
+
+         <div class="list-group">
+      
+          <a href="" class="list-group-item"></a>
+        
+      
+        </div>
+        <a href="{{path("panier")}}" class="btn btn-info mt-2">mon panier</a>
+        <!-- petit panier -->
+        <div class="row mt-5 panier-boutique col-9 ">
+                <table class="table table-striped ">
+                    <thead>
+                        <tr>
+                            <th scope="col"> </th>
+                            <th scope="col">Produit</th>
+                            <th scope="col">disponible</th>
+                            <th scope="col" class="text-center">Quantité</th>
+                            <th scope="col" class="text-right">Prix</th>
+                            <th scope="col" class="text-right">total/produit</th>
+                            <th> </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    {% for item in items %}
+
+                        <tr>
+                            <td><img src="/produits_image/{{item.produit.illustration}}" class="col-2"/> </td>
+                            <td>{{item.produit.nom}}</td>
+                            <td>en stock</td>
+                            <td><input class="form-control" type="text" value={{item.quantite}} /></td>
+                            <td class="text-right">{{item.produit.price/100}}</td>
+                            <td>{{item.produit.price/100 * item.quantite }}</td>
+                            <td class="text-right"><a class="btn btn-sm btn-danger" href="{{path("panier_removeBoutiqueCategorie",{'id': item.produit.id})}}"><i class="fa fa-trash">supprimer</i> </a> </td>
+                            
+                        </tr>
+                       {% endfor %}
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td>Sub-Total</td>
+                            <td class="text-right">{{total/100}}</td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td>Shipping</td>
+                            <td class="text-right"></td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td><strong>Total</strong></td>
+                            <td class="text-right"><strong>{{total/100}}</strong></td>
+                        </tr>
+                    </tbody>
+                </table>
+            
+        
+        
+                  
+                  <div class="col-sm-12 col-md-6 text-right">
+                      <a href="{{path('panier')}}" > <button class="btn btn-block btn-success">valider</button></a>
+                  </div>
+               
+         
+        </div>
+        <!-- /petit panier -->
+       </section>
+     
+      <!-- /.col-lg-3 -->
+
+      </div>
+      <!-- /.col-lg-3 -->
+
+      <div class="col-lg-7 ">
+<h2>{{titreCategorie}}</h2>
+   
+        <div class="row">
+            {% for produit in produits %}
+        
+            
+          <div class="col-lg-4 col-md-6 mb-4">
+            <div class="card h-100">
+              <a href="#"><img class="card-img-top" src="/produits_image/{{produit.illustration}}" alt={{produit.nom}}></a>
+              <div class="card-body">
+                <h4 class="card-title">
+                  <a href="#">{{produit.nom}}</a>
+                </h4>
+                <h5>{{produit.price/100}} euros</h5>
+                <p class="card-text">{{produit.description}}</p>
+              </div>
+              <div class="card-footer">
+                <a href="{{path("addCategorie",{'id': produit.id})}}" class="btn btn-success float-right">
+                        <i class="fas fa-cart-arrow-down"></i>
+                        Ajouter
+                    </a>
+              </div>
+            </div>
+          </div>
+          
+        {% endfor %}
+               <a href="{{path('boutique')}}" > <button class="btn btn-light btn-success">retour à la liste</button></a>
+
+        </div>
+        <!-- /.row -->
+ 
+      </div>
+      <!-- /.col-lg-9 -->
+
+    </div>
+    <!-- /.row -->
+
+  </div>
+  <!-- /.container -->
+
+
+{% endblock %}

@@ -1,0 +1,52 @@
+{% extends 'base.html.twig' %}
+
+{# {% block title %}{% endblock %} #}
+
+ {% block javascripts %}
+ <script src="https://js.stripe.com/v3/" defer></script>
+ <script src="{{asset('assets/js/script.js' )}}"  crossorigin="anonymous" defer></script>
+        {% endblock %}
+{% block body %}
+   <section class="jumbotron text-center">
+    <div class="container">
+        <h1 class="jumbotron-heading">Finaliser ma commande</h1>
+     </div>
+</section>
+
+<div class="container mb-4 row justify-content-between">
+<div class="col-4">
+{% if app.user.adresses.snapshot != [] %}
+{% set toHTML %}
+{{form_start(form,{'action':path('paiement')})}}
+{{form_end(form)}}
+
+{% endset %}
+{{ toHTML|replace({"%br%":"<br/>"})| raw}}
+{% else %}
+  <a href="{{path("adresseAdd")}}" > <button class="btn btn-block btn-success">ajouter une adresse</button></a>
+
+{% endif %}
+</div>
+<div class="col-4">
+<h2 id="test">DETAILS DE MA COMMANDES</h2>
+ {% for item in items %}
+
+                        <tr>
+                            <td><img src="/produits_image/{{item.produit.illustration}}" class="col-2"/> </td>
+                            <td>{{item.produit.nom}}</td>
+                            
+                             <td>{{item.quantite}}</td>
+                            <td class="text-right">{{(item.produit.price/100)|number_format(2,',','')}}EUR</td>
+                            <td>{{(item.produit.price/100 * item.quantite)|number_format(2,',','') }}EUR</td>
+                            
+                        </tr>
+                       {% endfor %}
+                       </div>
+<p id="">Vous allez être redirigé vers notre plateforme de paiement sécurisée.</p>
+<p id="">Le montant débité sera de:</p>
+<p id="">{{(total/100)|number_format(2,',','')}}</p>
+
+
+   
+</div>
+{% endblock %}

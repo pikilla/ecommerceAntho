@@ -1,0 +1,34 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello AccountController!{% endblock %}
+
+{% block body %}
+<style>
+    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
+    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
+</style>
+
+<div class="example-wrapper">
+    <h1>Mes adresses</h1>
+    {% if app.user.adresses|length == 0 %}
+    <p>vous n'avez pas d'adresse connue</p>
+    {% endif %}
+    {% for adress in app.user.adresses %}
+<div class="card border-dark mb-3" style="max-width: 18rem;">
+  <div class="card-header">{{adress.name}}</div>
+  <div class="card-body text-dark">
+    <h5 class="card-title">{{adress.firstName}}{{adress.lastName}}</h5>
+    <p class="card-text">{{adress.address}}</p>
+    <p class="card-text">{{adress.city}}</p>
+    <p class="card-text">{{adress.country}}</p>
+    <p class="card-text">{{adress.postalCode}}</p>
+    <p class="card-text">{{adress.phone}}</p>
+    <p class="card-text">{{adress.societe}}</p>
+    <a href="{{path("adresse_modification",{'id': adress.id})}}">modifier</a>
+    <a href="{{path("adresseRemove",{'id': adress.id})}}">supprimer</a>
+  </div>
+</div>
+{% endfor %}
+          <a class="nav-link" href="{{path('adresseAdd')}}">ajouter une adresse</a>
+
+{% endblock %}

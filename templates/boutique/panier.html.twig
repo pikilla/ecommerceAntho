@@ -1,0 +1,98 @@
+{% extends 'base.html.twig' %}
+
+{# {% block title %}{% endblock %} #}
+
+{% block body %}
+   <section class="jumbotron text-center">
+    <div class="container">
+        <h1 class="jumbotron-heading">MON PANIER</h1>
+     </div>
+</section>
+{% if  items|length > 0 %}
+
+<div class="container mb-4">
+    <div class="row">
+        <div class="col-12">
+            <div class="table-responsive">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th scope="col"> </th>
+                            <th scope="col">Produit</th>
+                            <th scope="col">disponible</th>
+                            <th scope="col">enlever</th>
+                            <th scope="col" class="text-center">Quantité</th>
+                            <th scope="col">ajouter</th>
+                            <th scope="col" class="text-right">Prix</th>
+                            <th scope="col" class="text-right">total/produit</th>
+                            <th> </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    {% for item in items %}
+
+                        <tr>
+                            <td><img src="produits_image/{{item.produit.illustration}}" class="col-2"/> </td>
+                            <td>{{item.produit.nom}}</td>
+                            <td>en stock</td>
+                            <td><a class="btn btn-sm  col-3 essai" href="{{path("panier_moins",{'id': item.produit.id})}}"><i class="fas fa-minus-square"></i> </a></td>
+                             <td><input class="form-control col-3" type="text" value={{item.quantite}} /></td>
+                              <td><a class="btn btn-sm  col-3" href="{{path("panier_plus",{'id': item.produit.id})}}"><i class="fas fa-plus-square"></i> </a></td>
+                            <td class="text-right">{{(item.produit.price/100)|number_format(2,',','')}}</td>
+                            <td>{{(item.produit.price/100 * item.quantite)|number_format(2,',','') }}</td>
+                            <td class="text-right"><a class="btn btn-sm btn-danger" href="{{path("panier_remove",{'id': item.produit.id})}}"><i class="fa fa-trash"></i> </a> </td>
+                            
+                        </tr>
+                       {% endfor %}
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td>Sub-Total</td>
+                            <td class="text-right">{{(total/100)|number_format(2,',','')}}</td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td>Shipping</td>
+                            <td class="text-right"></td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td><strong>Total</strong></td>
+                            <td class="text-right"><strong>{{(total/100)|number_format(2,',','')}}</strong></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="col mb-2">
+            <div class="row">
+                <div class="col-sm-12  col-md-6">
+                    <a href="{{path('boutique')}}" > <button class="btn btn-block btn-light">Continuer le shopping</button></a>
+                </div>
+                <div class="col-sm-12 col-md-6 text-right">
+                    <a href="{{path("verifCommande",{'total': total})}}" > <button class="btn btn-block btn-success">valider</button></a>
+                </div>
+                </div>
+                <td class="text-right"><a class="btn btn-sm btn-danger" href="{{path("panier_removeAll")}}"><i class="fa fa-trash"></i>vider le panier </a> </td>
+            </div>
+        </div>
+    </div>
+</div>
+ 
+{% else %}
+<p>le panier est vide</p>
+{% endif %}
+{% endblock %}
+ {% block javascripts %}
+ <script src="https://js.stripe.com/v3/"></script>
+ <script src="{{asset('script.js')}}"  crossorigin="anonymous" defer></script>
+ 
+        {% endblock %}

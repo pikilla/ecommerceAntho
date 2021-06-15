@@ -1,0 +1,54 @@
+{% extends 'base.html.twig' %}
+
+{# {% block title %}{% endblock %} #}
+
+ {% block javascripts %}
+ <script src="https://js.stripe.com/v3/" defer></script>
+ <script src="{{asset('assets/js/script.js' )}}"  crossorigin="anonymous" defer></script>
+        {% endblock %}
+{% block body %}
+    <h1>Récapitulatif de la commande</h1>
+    <p>Préférence de livraison</p>
+    {# pour faire la barre #}
+    <hr />
+    <div class="row">
+        <div class="col-md-6">
+        <strong>Mon adresse de livraison</strong>
+           <div>
+            {{ delivery|raw}}
+           </div>
+        <hr />
+        <strong>Mon Transporteur</strong>
+        <p>{{ deliverer.nom }}</p>
+        <p>{{ deliverer.description }}</p>
+        <p>{{ deliverer.price|number_format(2, ',', '.') }}€</p>
+        </div>
+        <div class="col-md-6">
+            <strong>Détail de ma commande</strong>
+            {% set total = null %}
+            {% for product in cart %}
+                <div class="row">
+                    <div class="col-2">
+                        <img src="/images/{{product.produit.illustration}}" alt="{{ product.produit.nom }}" height="75"> 
+                    </div>
+                    <div class="col-8 my-auto">{{ product.produit.nom }}<br/>
+        <small>{{ product.produit.nom }} <p> x {{ product.quantite }}</p></small></div>
+                    <div class="col-2 my-auto">
+                        {{ (product.quantite * product.produit.price / 100)|number_format(2, ',', '.') }}€
+                    </div>
+                </div>
+
+                {% set total = total + (product.produit.price * product.quantite) %}
+            {% endfor %}
+            <hr />
+            <div>Sous-total: {{ (total/100)|number_format(2, ',', '.') }}€ </div>
+            <div>Livraison: {{ deliverer.price }}€</div>
+            <hr />
+            <div>Total: {{ (total/100 + deliverer.price)|number_format(2, ',', '.')  }}€</div>
+            <a href="" class="btn btn-success mt-3">Payer |  {{ (total/100 + deliverer.price)|number_format(2, ',', '.')  }}€</a>
+        </div>
+    </div>
+
+    <button id="checkout-button">acheter</button>
+</div>
+{% endblock %}

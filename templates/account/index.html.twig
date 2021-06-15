@@ -1,0 +1,24 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello AccountController!{% endblock %}
+
+{% block body %}
+<style>
+    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
+    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
+</style>
+
+<div class="example-wrapper">
+    <h1>espace personnel</h1>
+<h2>{{app.user.prenom}}</h2>
+<li class="nav-item">
+            <a class="nav-link" href="{{path('app_logout')}}">logout</a>
+          </li>
+ 
+    <ul>
+      <li><a href="{{path('account_pwd')}}">modifier le mot de passe</a></li>
+        <li><a href="{{ 'C:/Users/Utilisateur/Documents/maite/ecommerceAntho/templates/account/index.html.twig'|file_link(0) }}">historique de mes commandes</a></li>
+        <li><a href="{{ path('adresseAdd') }}">ajouter des adresse</a></li>
+    </ul>
+</div>
+{% endblock %}

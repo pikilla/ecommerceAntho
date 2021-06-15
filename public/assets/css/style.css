@@ -1,0 +1,39 @@
+.decoco>a{
+text-decoration:none;
+margin-top:5px;
+color:white;
+}
+body{
+    width: 90% !important;
+}
+table td{
+    width: 50px !important;
+}
+.panier-boutique{
+    margin-right: 200px !important;
+}
+.fa-plus-square{
+    color:blue;
+}
+.fa-minus-square{
+    color:blue;
+}
+#img_produit{
+    height: 200px !important;
+    /* max-width:100%; */
+}
+/* .cardEnvelop{
+    height: 100px !important;
+} */
+.card-title{
+    font-size: 1em;
+}
+.card-body{
+    height:100px !important;
+}
+.card-footer{
+    height:150px !important;
+}
+.carte{
+    width: 250px !important;
+}

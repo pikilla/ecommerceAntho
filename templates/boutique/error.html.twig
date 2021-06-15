@@ -1,0 +1,27 @@
+{% extends 'base.html.twig' %}
+
+{# {% block title %}{% endblock %} #}
+
+{% block body %}
+     <section class="jumbotron text-center mt-5">
+    <div class="container">
+        <h1 class="jumbotron-heading">erreur de paiement</h1>
+     </div>
+</section>
+
+
+<div class="container mb-4">
+erreur
+</div>
+ <li class="nav-item">
+                    <a class="nav-link " href="{{path('boutique')}}">BOUTIQUE</a>
+                </li>
+                 <li class="nav-item active">
+                    <a class="nav-link" href="{{path('home')}}">HOME </a>
+                </li>
+
+{% endblock %}
+ {% block javascripts %}
+ <script src="https://js.stripe.com/v3/"></script>
+ <script src="{{asset('assets/js/script.js')}}"  crossorigin="anonymous" defer></script>
+        {% endblock %}
